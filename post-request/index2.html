@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript post</title>
+</head>
+<body>
+    
+    <form action="" id="myForm">
+        <input type = "text" name="name"/>
+        <input type="password" name="password" />
+        <select name="city">
+                <option value="bangalore">bangalore</option>
+                <option value="mumbai">mumbai</option>
+                <option value="delhi">delhi</option>
+                <option value="chennai">chennai</option>
+        </select>
+        <button type = "submit">Submit</button>
+    </form>
+
+    <script>
+    
+        const url = "http://localhost:5000/sent-data";
+
+        document.getElementById('myForm').onsubmit = (e) => {
+            e.preventDefault();
+            var data = new URLSearchParams();
+
+            for(let pair of new FormData(e.target)){
+               
+                data.append(pair[0],pair[1],pair[2])
+            }
+
+            fetch(url,{
+                method: 'post',
+                body: data
+              }).then(res => res.json())
+                .then(res2 => console.log(res2))
+        }   
+    
+    </script>
+</body>
+</html>
